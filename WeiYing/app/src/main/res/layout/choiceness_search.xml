@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="60pt">
+    <RelativeLayout
+        android:layout_marginTop="10pt"
+        android:layout_width="match_parent"
+        android:background="@drawable/choiceness_shap"
+        android:layout_marginLeft="200pt"
+        android:layout_marginRight="200pt"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_width="35pt"
+            android:id="@+id/iv"
+            android:layout_height="35pt"
+            android:layout_marginLeft="5pt"
+            android:src="@mipmap/ic_launcher"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@id/iv"
+        android:layout_marginLeft="30pt"
+        android:textColorHint="#ffffff"
+        android:shadowColor="#9999"
+        android:textColorHighlight="#9999"
+        android:textColorLink="#9999"
+        android:layout_marginRight="5pt"
+        android:padding="10pt"
+        android:hint="我要看"/>
+    </RelativeLayout>
+
+
+</LinearLayout>
