@@ -91,11 +91,11 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
             list_path.add(pic3);
             list_path.add(pic4);
 
-        list_title.add("好好学习");
-        list_title.add("天天向上");
-        list_title.add("热爱劳动");
-        list_title.add("不搞对象");
-        list_title.add("哈哈");
+        list_title.add("");
+        list_title.add("");
+        list_title.add("");
+        list_title.add("");
+        list_title.add("");
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器，图片加载器在下方
