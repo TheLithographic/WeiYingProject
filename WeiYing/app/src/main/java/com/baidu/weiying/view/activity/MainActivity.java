@@ -27,7 +27,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * 主页
  * */
 public class MainActivity extends BaseActivity {
-    //分支链接GitHub
+
     private TextView mMainTitle;
     private ImageView mMainImageUser;
     private ViewPager mMainViewPager;
