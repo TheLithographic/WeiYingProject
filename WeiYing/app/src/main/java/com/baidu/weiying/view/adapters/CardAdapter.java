@@ -1,14 +1,18 @@
 package com.baidu.weiying.view.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.weiying.R;
+import com.baidu.weiying.view.activity.VideoInfoActivity;
 import com.baidu.weiying.view.bean.DiscoverSuperClass;
 import com.baidu.weiying.view.slidecard.User;
 import com.bumptech.glide.Glide;
@@ -24,7 +28,8 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
     private Context context;
-    List<DiscoverSuperClass.RetBean.ListBean> list;
+    private List<DiscoverSuperClass.RetBean.ListBean> list;
+    private int count = 0;
 
     public CardAdapter(Context context) {
         this.context = context;
@@ -38,7 +43,20 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_card, parent, false);
-        CardViewHolder holder = new CardViewHolder(view);
+        final CardViewHolder holder = new CardViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getLayoutPosition();
+                Intent intent = new Intent(context,VideoInfoActivity.class);
+                intent.putExtra("title",list.get(position).getTitle());
+                intent.putExtra("dataId",list.get(position).getDataId());
+                intent.putExtra("pic",list.get(position).getPic());
+                intent.putExtra("airTime",list.get(position).getAirTime());
+                intent.putExtra("score",list.get(position).getScore());
+                context.startActivity(intent);
+            }
+        });
         return holder;
     }
 
@@ -60,12 +78,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
     //右滑的时候调用
     public void addLoveCount() {
-
+        count++;
     }
 
     //左滑的时候调用
     public void addDelCount(){
-
+        count++;
     }
 
     class CardViewHolder extends RecyclerView.ViewHolder {

@@ -2,10 +2,12 @@ package com.baidu.weiying.modle;
 
 import com.baidu.weiying.presenter.IChoicenessPersenter;
 import com.baidu.weiying.presenter.IDiscoverPresenter;
+import com.baidu.weiying.presenter.IVideoInfoPresenter;
 import com.baidu.weiying.view.api.Api;
 import com.baidu.weiying.view.api.ApiService;
 import com.baidu.weiying.view.bean.DiscoverSuperClass;
 import com.baidu.weiying.view.bean.HomePageSuperClass;
+import com.baidu.weiying.view.bean.VideoInfoSuperClass;
 import com.baidu.weiying.view.utils.RetrofitUtils;
 
 import java.util.List;
@@ -71,6 +73,31 @@ public class TotalModle implements ITotalModle{
                     @Override
                     public void onError(Throwable t) {
                         iDiscoverPresenter.onFailed(t.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void getVideoInfo(String path, String mediaId, final IVideoInfoPresenter iVideoInfoPresenter) {
+        retrofitUtils = RetrofitUtils.getInData();
+        ApiService apiService = retrofitUtils.getRetrofit(path, ApiService.class);
+        Flowable<VideoInfoSuperClass> flowable = apiService.getVideoInfo(mediaId);
+        flowable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultSubscriber<VideoInfoSuperClass>() {
+                    @Override
+                    public void onNext(VideoInfoSuperClass videoInfoSuperClass) {
+                        iVideoInfoPresenter.onSuccess(videoInfoSuperClass);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        iVideoInfoPresenter.onFailed(t.getMessage());
                     }
 
                     @Override

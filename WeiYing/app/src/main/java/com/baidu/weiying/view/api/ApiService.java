@@ -2,6 +2,7 @@ package com.baidu.weiying.view.api;
 
 import com.baidu.weiying.view.bean.DiscoverSuperClass;
 import com.baidu.weiying.view.bean.HomePageSuperClass;
+import com.baidu.weiying.view.bean.VideoInfoSuperClass;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
@@ -18,4 +19,7 @@ public interface ApiService {
     //发现地址
     @GET("/front/columns/getVideoList.do")
     Flowable<DiscoverSuperClass> getDiscover(@Query("catalogId")String catalogId, @Query("pnum")String pnum);
+    //视频详情
+    @GET("/front/videoDetailApi/videoDetail.do")
+    Flowable<VideoInfoSuperClass> getVideoInfo(@Query("mediaId")String mediaId);
 }
