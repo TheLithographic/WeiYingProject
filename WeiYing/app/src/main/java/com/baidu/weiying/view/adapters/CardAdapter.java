@@ -48,6 +48,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         holder.itemCar_content.setText("\u3000\u3000" + list.get(position).getDescription());
         Glide.with(context)
                 .load(list.get(position).getPic())
+                .placeholder(R.mipmap.default_200)
                 .bitmapTransform(new RoundedCornersTransformation(context, 15, 0))
                 .into(holder.itemCar_image);
     }
