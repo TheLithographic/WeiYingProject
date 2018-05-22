@@ -1,14 +1,19 @@
 package com.baidu.weiying.modle;
 
 import com.baidu.weiying.presenter.IChoicenessPersenter;
+import com.baidu.weiying.presenter.IDiscoverPresenter;
 import com.baidu.weiying.view.api.Api;
 import com.baidu.weiying.view.api.ApiService;
+import com.baidu.weiying.view.bean.DiscoverSuperClass;
 import com.baidu.weiying.view.bean.HomePageSuperClass;
 import com.baidu.weiying.view.utils.RetrofitUtils;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DefaultSubscriber;
 import io.reactivex.subscribers.DisposableSubscriber;
 
 /**
@@ -16,6 +21,8 @@ import io.reactivex.subscribers.DisposableSubscriber;
  */
 
 public class TotalModle implements ITotalModle{
+
+    private RetrofitUtils retrofitUtils;
 
     @Override
     public void getChoiceness(final IChoicenessPersenter iChoicenessPersenter) {
@@ -38,6 +45,32 @@ public class TotalModle implements ITotalModle{
                         if (iChoicenessPersenter!=null){
                             iChoicenessPersenter.onFailed(t.getMessage());
                         }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void getDiscover(String path, String catalogId, String pnum, final IDiscoverPresenter iDiscoverPresenter) {
+        retrofitUtils = RetrofitUtils.getInData();
+        ApiService apiService = retrofitUtils.getRetrofit(path, ApiService.class);
+        Flowable<DiscoverSuperClass> flowable = apiService.getDiscover(catalogId, pnum);
+        flowable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultSubscriber<DiscoverSuperClass>() {
+                    @Override
+                    public void onNext(DiscoverSuperClass discoverSuperClass) {
+                        DiscoverSuperClass.RetBean retBean = discoverSuperClass.getRet();
+                        iDiscoverPresenter.onSuccess(retBean.getList());
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        iDiscoverPresenter.onFailed(t.getMessage());
                     }
 
                     @Override
