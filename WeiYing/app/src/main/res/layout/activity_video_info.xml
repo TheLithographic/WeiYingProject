@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@mipmap/card_bg"
+    tools:context="com.baidu.weiying.view.activity.VideoInfoActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140pt"
+        android:background="#000000"
+        android:paddingTop="40pt">
+        <ImageView
+            android:id="@+id/video_info_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/back"
+            android:paddingTop="40pt"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20pt"/>
+        <TextView
+            android:id="@+id/video_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="铁道飞虎"
+            android:textSize="36pt"
+            android:textStyle="bold"
+            android:paddingTop="40pt"
+            android:layout_centerInParent="true"
+            android:textColor="#0AA485"/>
+        <ImageView
+            android:id="@+id/video_info_collection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/collection"
+            android:paddingTop="40pt"
+            android:layout_marginRight="20pt"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/videoplayer"
+        android:layout_width="match_parent"
+        android:layout_height="200pt"
+        android:background="#20FFFFFF" />
+
+</LinearLayout>
