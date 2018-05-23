@@ -1,6 +1,7 @@
 package com.baidu.weiying.view.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.weiying.R;
+import com.baidu.weiying.view.activity.VideoInfoActivity;
 import com.baidu.weiying.view.bean.VideoInfoSuperClass;
 import com.bumptech.glide.Glide;
 
@@ -36,7 +38,21 @@ public class IntroAdapter extends RecyclerView.Adapter<IntroAdapter.ViewHolder> 
     @Override
     public IntroAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.intro_item, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getLayoutPosition();
+                Intent intent = new Intent(context,VideoInfoActivity.class);
+                intent.putExtra("title",list.get(position).getTitle());
+                intent.putExtra("dataId",list.get(position).getDataId());
+                intent.putExtra("pic",list.get(position).getPic());
+                intent.putExtra("airTime",list.get(position).getAirTime());
+                intent.putExtra("score",list.get(position).getScore());
+                context.startActivity(intent);
+
+            }
+        });
         return holder;
     }
 

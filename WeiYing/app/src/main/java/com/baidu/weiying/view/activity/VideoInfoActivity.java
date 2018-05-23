@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class VideoInfoActivity extends BaseActivity<VideoInfoPresenter> implements View.OnClickListener, IVideoInfoView {
@@ -166,6 +167,12 @@ public class VideoInfoActivity extends BaseActivity<VideoInfoPresenter> implemen
             return ret.getSmoothURL();
         else
             return "";
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
     @Override
