@@ -1,5 +1,6 @@
 package com.baidu.weiying.view.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -42,7 +43,7 @@ public class VideoInfoSuperClass {
         this.code = code;
     }
 
-    public static class RetBean {
+    public static class RetBean implements Serializable {
         /**
          * couponNum : 0
          * HDURL : http://movie.vods00.cnlive.com/video/data1/2017/0614/221723/1500/8affeb9df9ea4c609905e5c84f2cc6a6_221723_1500.m3u8

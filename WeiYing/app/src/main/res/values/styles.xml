@@ -29,4 +29,9 @@
         <item name="android:drawablePadding">0pt</item>
         <item name="android:textColor">@color/tab_selector</item>
     </style>
+
+    <style name="TabText" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32pt</item>
+    </style>
 </resources>

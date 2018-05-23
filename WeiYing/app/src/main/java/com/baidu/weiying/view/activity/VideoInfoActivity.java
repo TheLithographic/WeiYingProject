@@ -2,9 +2,13 @@ package com.baidu.weiying.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,19 +18,30 @@ import com.baidu.weiying.presenter.VideoInfoPresenter;
 import com.baidu.weiying.view.api.Api;
 import com.baidu.weiying.view.base.BaseActivity;
 import com.baidu.weiying.view.bean.VideoInfoSuperClass;
+import com.baidu.weiying.view.fragments.CommentFragment;
+import com.baidu.weiying.view.fragments.IntroFragment;
 import com.baidu.weiying.view.ifragments.IVideoInfoView;
 import com.bumptech.glide.Glide;
-import com.youth.banner.loader.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
-public class VideoInfoActivity extends BaseActivity<VideoInfoPresenter> implements View.OnClickListener,IVideoInfoView {
+public class VideoInfoActivity extends BaseActivity<VideoInfoPresenter> implements View.OnClickListener, IVideoInfoView {
 
     private ImageView mVideoInfoBack;
     private TextView mVideoInfoTitle;
     private ImageView mVideoInfoCollection;
     private JCVideoPlayerStandard mVideoplayer;
     private VideoInfoSuperClass.RetBean ret;
+    private TabLayout mVideoInfoTabLayout;
+    private ViewPager mVideoInfoViewPager;
+    private String[] strings = {"简介","评论"};
+    private List<Fragment> list;
+    private IntroFragment introFragment;
+    private CommentFragment commentFragment;
+    private String dataId;
 
     @Override
     protected int getLayoutId() {
@@ -48,13 +63,18 @@ public class VideoInfoActivity extends BaseActivity<VideoInfoPresenter> implemen
         mVideoInfoCollection = (ImageView) findViewById(R.id.video_info_collection);
         mVideoInfoCollection.setOnClickListener(this);
         mVideoplayer = (JCVideoPlayerStandard) findViewById(R.id.videoplayer);
+        mVideoInfoTabLayout = (TabLayout) findViewById(R.id.video_info_tabLayout);
+        mVideoInfoViewPager = (ViewPager) findViewById(R.id.video_info_viewPager);
+        list = new ArrayList<>();
+        introFragment = new IntroFragment();
+        commentFragment = new CommentFragment();
     }
 
     @Override
     protected void getData() {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
-        String dataId = intent.getStringExtra("dataId");
+        dataId = intent.getStringExtra("dataId");
         String pic = intent.getStringExtra("pic");
         String airTime = intent.getStringExtra("airTime");
         String score = intent.getStringExtra("score");
@@ -65,7 +85,8 @@ public class VideoInfoActivity extends BaseActivity<VideoInfoPresenter> implemen
         mVideoplayer.titleTextView.setVisibility(View.GONE);
         mVideoplayer.tinyBackImageView.setVisibility(View.GONE);
 
-        presenter.getVideoInfo(Api.HOST_NAME,dataId);
+        presenter.getVideoInfo(Api.HOST_NAME, dataId);
+
     }
 
     @Override
@@ -97,9 +118,43 @@ public class VideoInfoActivity extends BaseActivity<VideoInfoPresenter> implemen
             String videoUrl = getVideoUrl();
             String[] split = videoUrl.split("m3u8");
             mVideoplayer.setUp(split[0] + "mp4"
-                    , JCVideoPlayerStandard.SCREEN_LAYOUT_LIST,ret.getTitle());
+                    , JCVideoPlayerStandard.SCREEN_LAYOUT_LIST, ret.getTitle());
             mVideoplayer.onClick(mVideoplayer.thumbImageView);
         }
+
+        //存值
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("ret",ret);
+        bundle.putString("mediaId",dataId);
+        introFragment.setArguments(bundle);
+        commentFragment.setArguments(bundle);
+
+        //把fragment添加到集合中
+        list.add(introFragment);
+        list.add(commentFragment);
+        //把标题添加到TabLayout里
+        for (int i = 0; i < strings.length; i++) {
+            mVideoInfoTabLayout.addTab(mVideoInfoTabLayout.newTab().setText(strings[i]));
+        }
+        //设置viewpager适配器
+        mVideoInfoViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return list.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return list != null ? list.size() : 0;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return strings[position];
+            }
+        });
+        //设置viewpager和tablayout联动
+        mVideoInfoTabLayout.setupWithViewPager(mVideoInfoViewPager);
     }
 
     public String getVideoUrl() {

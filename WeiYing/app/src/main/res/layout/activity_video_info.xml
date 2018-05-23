@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/card_bg"
+    android:background="@drawable/blue_grey_background"
     tools:context="com.baidu.weiying.view.activity.VideoInfoActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,4 +47,22 @@
         android:layout_height="200pt"
         android:background="#20FFFFFF" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/video_info_tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextAppearance="@style/TabText"
+            android:background="#7D6F6E"
+            app:tabTextColor="#ffffff"
+            app:tabSelectedTextColor="#ff669900"
+            app:tabIndicatorColor="#ff669900" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/video_info_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </LinearLayout>
