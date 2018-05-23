@@ -126,7 +126,7 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
         adapter.setOnClickListener(new MyChoicenessAdapter.setOnClick() {
             @Override
             public void onClickListener(int position) {
-                //Toast.makeText(getContext(), position+"---", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), position+"---", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.putExtra("MVURL",data.getList().get(position).getChildList().get(0).getLoadURL());
             }
