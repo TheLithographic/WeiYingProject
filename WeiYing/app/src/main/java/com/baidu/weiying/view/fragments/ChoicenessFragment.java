@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.baidu.weiying.R;
 import com.baidu.weiying.presenter.ChoicenessPersenter;
+import com.baidu.weiying.view.activity.VideoInfoActivity;
 import com.baidu.weiying.view.adapters.MyChoicenessAdapter;
 import com.baidu.weiying.view.base.BaseFragment;
 import com.baidu.weiying.view.bean.HomePageSuperClass;
@@ -126,9 +127,13 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
         adapter.setOnClickListener(new MyChoicenessAdapter.setOnClick() {
             @Override
             public void onClickListener(int position) {
-                Toast.makeText(getContext(), position+"---", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.putExtra("MVURL",data.getList().get(position).getChildList().get(0).getLoadURL());
+                Intent intent = new Intent(getContext(),VideoInfoActivity.class);
+                intent.putExtra("title",data.getList().get(position).getChildList().get(0).getTitle());
+                intent.putExtra("dataId",data.getList().get(position).getChildList().get(0).getDataId());
+                intent.putExtra("pic",data.getList().get(position).getChildList().get(0).getPic());
+                intent.putExtra("airTime",data.getList().get(position).getChildList().get(0).getAirTime());
+                intent.putExtra("score",data.getList().get(position).getChildList().get(0).getScore());
+                startActivity(intent);
             }
         });
 
