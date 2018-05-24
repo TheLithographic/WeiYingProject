@@ -78,7 +78,7 @@ public class IntroFragment extends BaseFragment {
         mIntroRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
         mIntroRecyclerView.setAdapter(adapter);
-        //条目点击监听
+
         adapter.setOnItemClickListener(new IntroAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
