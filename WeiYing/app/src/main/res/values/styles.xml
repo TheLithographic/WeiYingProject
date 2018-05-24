@@ -30,6 +30,7 @@
         <item name="android:textColor">@color/tab_selector</item>
     </style>
 
+<<<<<<< HEAD
     <style name="small_tv_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -37,3 +38,10 @@
         <item name="android:textSize">12sp</item>
     </style>
  </resources>
+=======
+    <style name="TabText" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32pt</item>
+    </style>
+</resources>
+>>>>>>> b17dfe94f89d4738a40b6c5ef53e27e0c4d998e4

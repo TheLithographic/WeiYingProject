@@ -2,18 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250pt"
         android:layout_margin="10pt"
-        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        android:src="@mipmap/fancy"
         android:id="@+id/choiceness_item_iv"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:id="@+id/choiceness_item_tv"
+        android:layout_margin="5pt"
+        android:textColor="#ffffff"
         android:text="1323"/>
 </LinearLayout>

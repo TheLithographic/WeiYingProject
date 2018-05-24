@@ -22,7 +22,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.MainActivity" />
+<<<<<<< HEAD
         <activity android:name=".view.activity.DissertationTwo"></activity>
+=======
+        <activity android:name=".view.activity.VideoInfoActivity"></activity>
+>>>>>>> b17dfe94f89d4738a40b6c5ef53e27e0c4d998e4
     </application>
 
 </manifest>

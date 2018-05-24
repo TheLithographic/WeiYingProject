@@ -1,19 +1,24 @@
 package com.baidu.weiying.view.fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.baidu.weiying.R;
 import com.baidu.weiying.presenter.ChoicenessPersenter;
+import com.baidu.weiying.view.activity.VideoInfoActivity;
 import com.baidu.weiying.view.adapters.MyChoicenessAdapter;
 import com.baidu.weiying.view.base.BaseFragment;
 import com.baidu.weiying.view.bean.HomePageSuperClass;
@@ -40,6 +45,8 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
     private Banner banner;
     private ArrayList<String> list_path;
     private ArrayList<String> list_title;
+    private ScrollView slv;
+
     @Override
     protected int getLayoutId() {
         return R.layout.choiceness_fragment;
@@ -56,16 +63,11 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
         mRlv = view.findViewById(R.id.choiceness_rlv);
         mImgUrls = new ArrayList<>();
         banner = (Banner) view.findViewById(R.id.banner);
+        slv = view.findViewById(R.id.choiceness_slv);
         //放图片地址的集合
         list_path = new ArrayList<>();
         //放标题的集合
         list_title = new ArrayList<>();
-
-//        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-//        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-//        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-//        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-
     }
 
     @Override
@@ -75,7 +77,7 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
 
 
     @Override
-    public void onSucess(HomePageSuperClass.RetBean data) {
+    public void onSucess(final HomePageSuperClass.RetBean data) {
         this.data = data;
         List<HomePageSuperClass.RetBean.ListBean> list = data.getList();
 
@@ -117,6 +119,23 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
                 //必须最后调用的方法，启动轮播图。
                 .start();
 
+        MyChoicenessAdapter adapter = new MyChoicenessAdapter(getContext());
+        adapter.setList(list);
+        mRlv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRlv.setAdapter(adapter);
+
+        adapter.setOnClickListener(new MyChoicenessAdapter.setOnClick() {
+            @Override
+            public void onClickListener(int position) {
+                Intent intent = new Intent(getContext(),VideoInfoActivity.class);
+                intent.putExtra("title",data.getList().get(position).getChildList().get(0).getTitle());
+                intent.putExtra("dataId",data.getList().get(position).getChildList().get(0).getDataId());
+                intent.putExtra("pic",data.getList().get(position).getChildList().get(0).getPic());
+                intent.putExtra("airTime",data.getList().get(position).getChildList().get(0).getAirTime());
+                intent.putExtra("score",data.getList().get(position).getChildList().get(0).getScore());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -137,4 +156,5 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
     public void OnBannerClick(int position) {
 
     }
+
 }
