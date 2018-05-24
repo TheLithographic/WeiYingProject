@@ -20,13 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.MainActivity" />
-<<<<<<< HEAD
-        <activity android:name=".view.activity.VideoInfoActivity" />
         <activity android:name=".view.activity.SearchActivity"></activity>
-=======
         <activity android:name=".view.activity.DissertationTwo"></activity>
         <activity android:name=".view.activity.VideoInfoActivity"></activity>
->>>>>>> 4c1417bf91ff5ed22115df8ce3a58719fe3753d0
     </application>
 
 </manifest>
