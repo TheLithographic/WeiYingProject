@@ -60,7 +60,7 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements I
     protected void getData() {
         Bundle bundle = getArguments();
         String mediaId = bundle.getString("mediaId");
-        presenter.getComment(Api.HOST_NAME, "92c79a87d6af4748b9f40a5189a5e7e0", count + "");
+        presenter.getComment(Api.HOST_NAME, mediaId, count + "");
 
         mCommentRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mCommentRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));

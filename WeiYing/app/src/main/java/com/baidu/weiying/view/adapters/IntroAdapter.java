@@ -25,6 +25,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class IntroAdapter extends RecyclerView.Adapter<IntroAdapter.ViewHolder> {
     private Context context;
     private List<VideoInfoSuperClass.RetBean.ListBean.ChildListBean> list;
+    private OnItemClickListener onItemClickListener;
 
     public IntroAdapter(Context context) {
         this.context = context;
@@ -35,6 +36,10 @@ public class IntroAdapter extends RecyclerView.Adapter<IntroAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @Override
     public IntroAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.intro_item, parent, false);
@@ -43,14 +48,7 @@ public class IntroAdapter extends RecyclerView.Adapter<IntroAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 int position = holder.getLayoutPosition();
-                Intent intent = new Intent(context,VideoInfoActivity.class);
-                intent.putExtra("title",list.get(position).getTitle());
-                intent.putExtra("dataId",list.get(position).getDataId());
-                intent.putExtra("pic",list.get(position).getPic());
-                intent.putExtra("airTime",list.get(position).getAirTime());
-                intent.putExtra("score",list.get(position).getScore());
-                context.startActivity(intent);
-
+                onItemClickListener.onItemClick(position);
             }
         });
         return holder;
@@ -79,5 +77,9 @@ public class IntroAdapter extends RecyclerView.Adapter<IntroAdapter.ViewHolder> 
             image_view = itemView.findViewById(R.id.info_image_view);
             text_view = itemView.findViewById(R.id.info_text_view);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

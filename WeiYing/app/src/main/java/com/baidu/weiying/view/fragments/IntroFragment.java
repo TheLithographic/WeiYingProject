@@ -1,5 +1,6 @@
 package com.baidu.weiying.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.baidu.weiying.R;
+import com.baidu.weiying.view.activity.VideoInfoActivity;
 import com.baidu.weiying.view.adapters.IntroAdapter;
 import com.baidu.weiying.view.base.BaseFragment;
 import com.baidu.weiying.view.bean.VideoInfoSuperClass;
@@ -27,6 +29,7 @@ public class IntroFragment extends BaseFragment {
     private boolean flag = true;
     private VideoInfoSuperClass.RetBean ret;
     private IntroAdapter adapter;
+    private List<VideoInfoSuperClass.RetBean.ListBean.ChildListBean> childList;
 
     @Override
     protected int getLayoutId() {
@@ -76,11 +79,25 @@ public class IntroFragment extends BaseFragment {
 
         mIntroRecyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new IntroAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(getContext(),VideoInfoActivity.class);
+                intent.putExtra("title",childList.get(position).getTitle());
+                intent.putExtra("dataId",childList.get(position).getDataId());
+                intent.putExtra("pic",childList.get(position).getPic());
+                intent.putExtra("airTime",childList.get(position).getAirTime());
+                intent.putExtra("score",childList.get(position).getScore());
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
         getPresentationData();
     }
 
     private void getPresentationData() {
-        List<VideoInfoSuperClass.RetBean.ListBean.ChildListBean> childList = ret.getList().get(0).getChildList();
+        childList = ret.getList().get(0).getChildList();
         if (childList != null){
             adapter.setList(childList);
         }
