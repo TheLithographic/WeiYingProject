@@ -3,9 +3,7 @@
     package="com.baidu.weiying">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    //联网
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    //读取外置存储卡
     <application
         android:name=".view.myapp.MyApplication"
         android:allowBackup="true"
@@ -22,11 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.MainActivity" />
-<<<<<<< HEAD
         <activity android:name=".view.activity.DissertationTwo"></activity>
-=======
         <activity android:name=".view.activity.VideoInfoActivity"></activity>
->>>>>>> b17dfe94f89d4738a40b6c5ef53e27e0c4d998e4
     </application>
 
 </manifest>

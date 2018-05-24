@@ -10,8 +10,6 @@ import android.view.WindowManager;
 
 import com.baidu.weiying.R;
 
-import org.greenrobot.eventbus.EventBus;
-
 /**
  * Activity抽取基类
  */

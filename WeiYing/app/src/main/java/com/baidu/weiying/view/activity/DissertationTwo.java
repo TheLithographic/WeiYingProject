@@ -1,5 +1,6 @@
 package com.baidu.weiying.view.activity;
 
+ import android.content.Intent;
  import android.os.Bundle;
  import android.os.Parcelable;
  import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,7 @@ package com.baidu.weiying.view.activity;
  import java.util.ArrayList;
  import java.util.List;
 
-public class DissertationTwo extends BaseActivity<DissertationPersenter> implements IDissertationFragment, DissTwoAdapter.OnItemClickListener {
+public class DissertationTwo extends BaseActivity<DissertationPersenter> implements IDissertationFragment {
 
 
      private Bundle bundle;
@@ -70,7 +71,18 @@ public class DissertationTwo extends BaseActivity<DissertationPersenter> impleme
 
         DissTwoAdapter dissTwoAdapter = new DissTwoAdapter(this, childList);
         recycleTwo.setAdapter(dissTwoAdapter);
-        dissTwoAdapter.setItemClickListener(this);
+        dissTwoAdapter.setItemClickListener(new DissTwoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Integer tag) {
+                Intent intent = new Intent(DissertationTwo.this,VideoInfoActivity.class);
+                intent.putExtra("title",childList.get(tag).getTitle());
+                intent.putExtra("dataId",childList.get(tag).getDataId());
+                intent.putExtra("pic",childList.get(tag).getPic());
+                intent.putExtra("airTime",childList.get(tag).getAirTime());
+                intent.putExtra("score",childList.get(tag).getScore());
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -80,9 +92,9 @@ public class DissertationTwo extends BaseActivity<DissertationPersenter> impleme
 
     }
 
-    @Override
+    /*@Override
     public void onItemClick(Integer tag) {
         Toast.makeText(this, "点击成功！！！", Toast.LENGTH_SHORT).show();
 
-    }
+    }*/
 }

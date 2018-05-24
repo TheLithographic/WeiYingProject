@@ -3,8 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
-<<<<<<< HEAD
     <color name="white_translucent">#30FFFFFF</color>
     <color name="white_translucent_20">#20FFFFFF</color>
     <color name="black_translucent">#50000000</color>
@@ -35,7 +33,6 @@
 
     <!--basic color-->
     <color name="white">#ffffff</color>
-    <color name="black">#040404</color>
     <color name="colorTextIcon">#ffffff</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondText">#727272</color>
@@ -121,14 +118,9 @@
     <color name="colorDeepOrangeAccent">#FF4081</color>
     <color name="colorDeepOrangePrimaryCenter">#5c1e0a</color>
 
-    <!--blueGrey-->
-    <color name="colorBlueGreyPrimary">#607D8B</color>
     <color name="colorBlueGreyPrimaryDark">#455A64</color>
     <color name="colorBlueGreyAccent">#FF4081</color>
-    <color name="colorBlueGreyPrimaryCenter">#27373e</color>
-=======
     <color name="colorBlueGreyPrimary">#607D8B</color>
     <color name="colorBlueGreyPrimaryCenter">#27373e</color>
     <color name="black">#040404</color>
->>>>>>> b17dfe94f89d4738a40b6c5ef53e27e0c4d998e4
 </resources>
