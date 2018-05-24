@@ -1,11 +1,15 @@
 package com.baidu.weiying.modle;
 
 import com.baidu.weiying.presenter.IChoicenessPersenter;
+import com.baidu.weiying.presenter.ICommentPresenter;
 import com.baidu.weiying.presenter.IDiscoverPresenter;
+import com.baidu.weiying.presenter.IDissertationPersenter;
 import com.baidu.weiying.presenter.IVideoInfoPresenter;
 import com.baidu.weiying.view.api.Api;
 import com.baidu.weiying.view.api.ApiService;
+import com.baidu.weiying.view.bean.CommentSuperClass;
 import com.baidu.weiying.view.bean.DiscoverSuperClass;
+import com.baidu.weiying.view.bean.DissertationSuperClass;
 import com.baidu.weiying.view.bean.HomePageSuperClass;
 import com.baidu.weiying.view.bean.VideoInfoSuperClass;
 import com.baidu.weiying.view.utils.RetrofitUtils;
@@ -83,6 +87,31 @@ public class TotalModle implements ITotalModle{
     }
 
     @Override
+    public void getDissertation(final IDissertationPersenter iDissertationPersenter) {
+        RetrofitUtils inData = RetrofitUtils.getInData();
+        ApiService retrofit = inData.getRetrofit(Api.HOST_NAME, ApiService.class);
+        Flowable<DissertationSuperClass> dissertation = retrofit.getDissertation();
+        dissertation.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DefaultSubscriber<DissertationSuperClass>() {
+                    @Override
+                    public void onNext(DissertationSuperClass dissertationSuperClass) {
+                        DissertationSuperClass.RetBean ret = dissertationSuperClass.getRet();
+                        if (dissertationSuperClass!=null){
+                            iDissertationPersenter.onSuccess(ret);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        iDissertationPersenter.onFailed(t.getMessage());
+                    }
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     public void getVideoInfo(String path, String mediaId, final IVideoInfoPresenter iVideoInfoPresenter) {
         retrofitUtils = RetrofitUtils.getInData();
         ApiService apiService = retrofitUtils.getRetrofit(path, ApiService.class);
@@ -98,6 +127,32 @@ public class TotalModle implements ITotalModle{
                     @Override
                     public void onError(Throwable t) {
                         iVideoInfoPresenter.onFailed(t.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void getComment(String path, String mediaId, String pnum, final ICommentPresenter iCommentPresenter) {
+        retrofitUtils = RetrofitUtils.getInData();
+        ApiService apiService = retrofitUtils.getRetrofit(path, ApiService.class);
+        Flowable<CommentSuperClass> flowable = apiService.getComment(mediaId, pnum);
+        flowable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultSubscriber<CommentSuperClass>() {
+                    @Override
+                    public void onNext(CommentSuperClass commentSuperClass) {
+                        CommentSuperClass.RetBean ret = commentSuperClass.getRet();
+                        iCommentPresenter.onSuccess(ret.getList());
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        iCommentPresenter.onFailed(t.getMessage());
                     }
 
                     @Override
