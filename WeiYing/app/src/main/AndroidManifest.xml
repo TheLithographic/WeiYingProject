@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.baidu.weiying">
-    <uses-permission android:name="android.permission.INTERNET" />//联网
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />//读取外置存储卡
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    //联网
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    //读取外置存储卡
     <application
         android:name=".view.myapp.MyApplication"
         android:allowBackup="true"
@@ -18,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.MainActivity"/>
+        <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.DissertationTwo"></activity>
     </application>
 
 </manifest>

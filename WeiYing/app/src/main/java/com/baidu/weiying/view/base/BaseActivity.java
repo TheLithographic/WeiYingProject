@@ -10,6 +10,8 @@ import android.view.WindowManager;
 
 import com.baidu.weiying.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * Activity抽取基类
  */
@@ -21,6 +23,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //去除标题
         getSupportActionBar().hide();
         //判断当sdk是否大 于等于5.0时执行沉浸式
@@ -32,9 +35,11 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
             window.setStatusBarColor(Color.TRANSPARENT);
         }
         setContentView(getLayoutId());
+
         presenter = getPresenter();
         initView();
         getData();
+
     }
 
     protected abstract int getLayoutId();

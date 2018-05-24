@@ -2,9 +2,11 @@ package com.baidu.weiying.modle;
 
 import com.baidu.weiying.presenter.IChoicenessPersenter;
 import com.baidu.weiying.presenter.IDiscoverPresenter;
+import com.baidu.weiying.presenter.IDissertationPersenter;
 import com.baidu.weiying.view.api.Api;
 import com.baidu.weiying.view.api.ApiService;
 import com.baidu.weiying.view.bean.DiscoverSuperClass;
+import com.baidu.weiying.view.bean.DissertationSuperClass;
 import com.baidu.weiying.view.bean.HomePageSuperClass;
 import com.baidu.weiying.view.utils.RetrofitUtils;
 
@@ -78,5 +80,37 @@ public class TotalModle implements ITotalModle{
 
                     }
                 });
+    }
+
+    @Override
+    public void getDissertation(final IDissertationPersenter iDissertationPersenter) {
+        RetrofitUtils inData = RetrofitUtils.getInData();
+        ApiService retrofit = inData.getRetrofit(Api.HOST_NAME, ApiService.class);
+        Flowable<DissertationSuperClass> dissertation = retrofit.getDissertation();
+        dissertation.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSubscriber<DissertationSuperClass>() {
+                    @Override
+                    public void onNext(DissertationSuperClass dissertationSuperClass) {
+                        DissertationSuperClass.RetBean ret = dissertationSuperClass.getRet();
+                        if (dissertationSuperClass!=null){
+                            iDissertationPersenter.onSuccess(ret);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        if (iDissertationPersenter!=null){
+                            iDissertationPersenter.onFailed(t.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
     }
 }
