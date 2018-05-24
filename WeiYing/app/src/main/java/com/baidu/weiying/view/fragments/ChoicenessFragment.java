@@ -10,14 +10,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.baidu.weiying.R;
 import com.baidu.weiying.presenter.ChoicenessPersenter;
+import com.baidu.weiying.view.activity.SearchActivity;
 import com.baidu.weiying.view.activity.VideoInfoActivity;
 import com.baidu.weiying.view.adapters.MyChoicenessAdapter;
 import com.baidu.weiying.view.base.BaseFragment;
@@ -46,6 +49,7 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
     private ArrayList<String> list_path;
     private ArrayList<String> list_title;
     private ScrollView slv;
+    private EditText et_search;
 
     @Override
     protected int getLayoutId() {
@@ -64,6 +68,7 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
         mImgUrls = new ArrayList<>();
         banner = (Banner) view.findViewById(R.id.banner);
         slv = view.findViewById(R.id.choiceness_slv);
+        et_search = view.findViewById(R.id.choiceness_et_search);
         //放图片地址的集合
         list_path = new ArrayList<>();
         //放标题的集合
@@ -137,6 +142,15 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
             }
         });
 
+        //点击跳转
+        et_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -156,5 +170,8 @@ public class ChoicenessFragment extends BaseFragment<ChoicenessPersenter> implem
     public void OnBannerClick(int position) {
 
     }
+
+
+
 
 }

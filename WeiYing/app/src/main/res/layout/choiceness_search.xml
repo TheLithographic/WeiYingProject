@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="60pt">
+    android:layout_height="70pt">
     <RelativeLayout
         android:layout_marginTop="10pt"
         android:layout_width="match_parent"
@@ -18,8 +18,9 @@
             android:layout_marginLeft="5pt"
             android:src="@mipmap/fancy_select"/>
     <EditText
+        android:id="@+id/choiceness_et_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50pt"
         android:layout_alignLeft="@id/iv"
         android:layout_marginLeft="30pt"
         android:textColorHint="#ffffff"

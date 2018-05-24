@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.MainActivity" />
-        <activity android:name=".view.activity.VideoInfoActivity"></activity>
+        <activity android:name=".view.activity.VideoInfoActivity" />
+        <activity android:name=".view.activity.SearchActivity"></activity>
     </application>
 
 </manifest>
